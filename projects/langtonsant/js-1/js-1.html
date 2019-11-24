@@ -1,0 +1,79 @@
+<!--
+John Scales
+CWID 888865730
+Class Number 335-04
+13602 Loumont st.
+Whittier, CA 90601
+24 September 2019
+Turk & Propp's Ant #12
+This file contains all of the html for project 1.
+-->
+
+<!doctype html><html><head>
+<title>This is ant #12</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body><h1>Ant #12</h1>
+<h4>Time-stamp: <2019-09-24 07:46:03 John Scales></h4>
+
+<canvas id="grid" width="410" height="410"></canvas>
+
+</body>
+<script src="../assets/draw-stuff.js"></script>
+<script>
+
+// =====================================================  draw_title ====
+// Draw filled rect.
+// =====================================================  Main ====
+var canvas = document.getElementById( "grid" );
+var context = canvas.getContext( "2d" );
+// Draw a grid
+draw_grid( context, 10, 100, 'white', 'green' );
+//ANT STUFF
+
+let ant = {
+	dir: 3,
+	color: 0,
+	x: 20,
+	y: 20
+}
+var black = 0, red = 1, yellow = 2, blue = 3;
+var ANTUP = 0, ANTRIGHT = 1, ANTDOWN = 2, ANTLEFT = 3;
+//Directional Grid
+
+var grid = Create2DArray(41);
+var counter = 0;
+draw_ant(context, ant.x, ant.y, ant.color);
+draw_triangle(context, ant.x+0.1, ant.y+0.4, ant.x + .8, ant.y+.1, ant.x+.8, ant.y+.8);
+//FSM
+const loopDrawRect = setInterval(() => {
+  //  Logic for ant
+	if (grid[ant.x][ant.y] == black){
+	grid[ant.x][ant.y] = red;
+	ant.color = red;
+	goleft(ant, context)
+	}
+	else if(grid[ant.x][ant.y] == red){
+	grid[ant.x][ant.y] = yellow;
+	ant.color = yellow;
+	goleft(ant, context)
+	}
+	else if(grid[ant.x][ant.y] == yellow){
+	grid[ant.x][ant.y] = blue;
+	ant.color = blue;
+	goright(ant, context)
+	}
+	else if(grid[ant.x][ant.y] == blue){
+	grid[ant.x][ant.y] = black;
+	ant.color = black;
+	goright(ant, context)
+	}
+    //console.log(ant.x);
+		//console.log(ant.y);
+    counter += 1;
+    if (counter == 40000){
+      clearInterval(loopDrawRect);
+    }
+  }, 250)
+</script>
+</html>

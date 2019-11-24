@@ -1,0 +1,109 @@
+<!--
+John Scales
+CWID 888865730
+Class Number 335-04
+13602 Loumont st.
+Whittier, CA 90601
+17 November 2019
+Aswilanga Cavern
+This file contains all of the html for project 2.
+-->
+
+<!DOCTYPE html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Great Aswilanga Caverns</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<h1>Great Aswilanga Caverns</h1>
+<h3>A visual demonstration of a search algorithm</h3>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="./draw-stuff.js"></script>
+<canvas id="rotation" width="1200" height="650"></canvas>
+<script>
+  var canvas = document.getElementById( "rotation" );
+  var context = canvas.getContext( "2d" );
+  myGraph();
+  //Pathfinder(sx,sy,sz);
+  makePath(sx,sy,sz);
+  //console.log(nodes);
+  var counter = -1;
+  var startnode = true;
+  var startdone = false;
+//FSM
+console.log(printnodes);
+console.log(path);
+//appends path nodes to print nodes
+for(var i = path.length-1; i>-1;i--){
+  printnodes.push(path[i]);
+}
+console.log(printnodes);
+// This is a loop that displays the searching first and then the path to the center most node
+  const loopDrawRect = setInterval(() => {
+    if(counter>-1){
+      var x = printnodes[counter].x;
+      var y = printnodes[counter].y;
+      var z = printnodes[counter].z;
+      var prevx = printnodes[counter].fx;
+      var prevy = printnodes[counter].fy;
+      var prevz = printnodes[counter].fz;
+    }
+    var msg = "temp";
+    if(startnode){
+      draw_room(context, 'blue', 'blue', sx, sy, sz);
+      drawTxt(context, sx, sy, sz);
+      msg = "Start Search @ " + makeID(sx,sy,sz);
+      console.log("Start Search @ " + makeID(sx,sy,sz));
+      startnode = false;
+    }
+    else if(counter>printnodes.length-path.length){
+      if(printnodes[counter].id == "F00"){
+        draw_room(context, 'yellow', 'yellow', x, y, z);
+        drawTxt(context, x, y, z);
+        msg = "Start Path @ " + printnodes[counter].id;
+        console.log("Start Path @ " + printnodes[counter].id);
+      }
+      else if (counter == printnodes.length-1){
+        draw_room(context, 'yellow', 'yellow', x, y, z);
+        drawLine(context,'yellow',prevx, prevy, prevz,x, y, z);
+        drawTxt(context, x, y, z);
+        msg = "Final, center most node: "+printnodes[counter].id;
+        console.log("Final, center most node @ "+printnodes[counter].id);
+      }
+      else{
+        draw_room(context, 'yellow', 'yellow', x, y, z);
+        drawLine(context,'yellow',prevx, prevy, prevz,x, y, z);
+        drawTxt(context, x, y, z);
+        msg = "Move to "+printnodes[counter].id;
+        console.log("Move to "+printnodes[counter].id);
+      }
+    }
+    else{
+      if(counter == 30){
+        draw_room(context, 'blue', 'blue', x, y, z);
+        drawLine(context,'blue',prevx, prevy, prevz,x, y, z);
+        drawTxt(context, x, y, z);
+        msg = "Search Completed @ "+printnodes[counter].id;
+        console.log("Search Completed @ "+printnodes[counter].id);
+      }
+      else{
+        draw_room(context, 'blue', 'blue', x, y, z);
+        drawLine(context,'blue',prevx, prevy, prevz,x, y, z);
+        drawTxt(context, x, y, z);
+        msg = "Move to "+printnodes[counter].id;
+        console.log("Move to "+printnodes[counter].id);
+      }
+    }
+    counter++;
+    draw_text(context, msg, 900, 10 + 10*counter);
+    if (counter == printnodes.length){
+      clearInterval(loopDrawRect);
+    }
+  }, 300)
+
+</script>
+
+</body>
+</html>

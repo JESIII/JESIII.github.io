@@ -1,0 +1,17 @@
+/*
+John Scales
+CWID 888865730
+Class Number 335-04
+13602 Loumont st.
+Whittier, CA 90601
+24 September 2019
+Turk & Propp's Ant #12
+This file is the style sheet for js-1.html
+*/
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+canvas {
+  background-color: Black;
+}

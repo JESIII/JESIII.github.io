@@ -1,0 +1,28 @@
+/*
+John Scales
+CWID 888865730
+Class Number 335-04
+13602 Loumont st.
+Whittier, CA 90601
+24 September 2019
+Aswilanga Caverns
+17 November 2019
+This file is the style sheet for aswilanga.html
+*/
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+canvas {
+  background-color: Black;
+}
+.node {
+    fill: #FF0000;
+    stroke: #8B0000;
+    stroke-width: 2px;
+}
+
+.link {
+    stroke: #777;
+    stroke-width: 2px;
+}
