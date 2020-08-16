@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Contact - John Scales</title>
+    <title>ETF Allocator</title>
     <meta name="description" content="A computer science student from SoCal. Here is my portfolio.">
     <link rel="icon" type="image/png" sizes="256x256" href="assets/img/unnamed.png">
     <link rel="icon" type="image/png" sizes="256x256" href="assets/img/unnamed.png">
@@ -28,28 +28,63 @@
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="index.html">Home</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="projects-grid-cards.html">Projects</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="cv.html">CV</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace active" href="contact.html">Contact</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="contact.html">Contact</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="twitch.html">Twitch</a></li>
                 </ul>
         </div>
         </div>
-    </nav>
-    <main class="page contact-page">
-        <section class="portfolio-block contact">
-            <div class="container" style="padding: 19px;">
-                <div class="heading">
-                    <h2>Contact me</h2>
+    </nav><div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>ETF Allocator</h1>
                 </div>
-                <form data-bss-recipient="47749a0fb10a3f05d44db2f481606636" data-bss-subject="johnscales.site contact me">
-                    <div class="form-group"><label for="name">Your Name</label><input class="form-control item" type="text" id="name"></div>
-                    <div class="form-group"><label for="subject">Subject</label><input class="form-control item" type="text" id="subject"></div>
-                    <div class="form-group"><label for="email">Email</label><input class="form-control item" type="email" id="email"></div>
-                    <div class="form-group"><label for="message">Message</label><textarea class="form-control item" id="message"></textarea></div>
-                    <div class="form-group"><button class="btn btn-primary btn-block btn-lg g-recaptcha" type="submit" data-sitekey="6LdeXfgUAAAAALEK3S1iKamV73hoBEIkuZvJuKzD">Submit Form</button></div>
-                </form>
             </div>
-        </section>
-    </main>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ticker</th>
+                                    <th>Allocation %</th>
+                                    <th>PPS</th>
+                                    <th>Quantity</th>
+                                    <th>Total Equity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stonks">
+                                <tr>
+                                    <td><input id="symbol0" type="text"></td>
+                                    <td><input id="alloc0" type="text"></td>
+                                    <td id="pps0"></td>
+                                    <td id="quant0"></td>
+                                    <td id="eq0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 offset-xl-0">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Available Capital:&nbsp;<input id="availCapital" type="text"></h5>
+                        </div>
+                    </div>
+                    <div class="btn-group" role="group"><button class="btn btn-primary" type="button" onclick="addRow()">Add</button><button class="btn btn-primary" type="button" onclick="delRow()">Delete</button><button class="btn btn-primary" type="button" onclick="autoBalance()">Auto Balance</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/etf.js"></script>
     <footer class="page-footer">
         <div class="container">
             <div class="links"><a class="text-monospace" href="cv.html">CV</a><a class="text-monospace" href="contact.html">Contact me</a><a class="text-monospace" href="projects-grid-cards.html">Projects</a></div>
