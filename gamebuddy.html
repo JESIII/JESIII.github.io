@@ -16,20 +16,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg" style="filter: blur(0px);background-color: rgb(38,38,38);">
-        <div class="container-fluid"><a class="navbar-brand text-monospace logo" href="#" style="font-family: Abel, sans-serif;"><img src="assets/img/unnamed.png" style="width:30px;"><img></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="index.html">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="projects-grid-cards.html">Projects</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="https://www.linkedin.com/in/john-scales/" target="_blank" rel="noopener">LinkedIn</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="contact.html">Contact</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="twitch.html">Twitch</a></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
+    <div data-include="/assets/components/navbar.html"></div>
     <div class="carousel slide" data-ride="carousel" data-pause="false" id="carousel-1">
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active"><img class="w-100 d-block" src="assets/img/Annotation%202020-05-11%20160702.png" alt="Slide Image"></div>
@@ -72,6 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/langtonsant.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="/assets/js/include-components.js"></script>
 </body>
 
 </html>

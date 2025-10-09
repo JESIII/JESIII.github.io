@@ -35,3 +35,11 @@ body > *:not(#smoke-canvas) {
   position: relative;
   z-index: 1;
 }
+
+/* Navbar active and hover styles */
+.nav-link.active-page {
+  font-weight: 700; /* bold for active page */
+}
+.nav-link.text-monospace:hover {
+  text-decoration: underline;
+}

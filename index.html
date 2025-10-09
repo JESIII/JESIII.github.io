@@ -15,29 +15,28 @@
     <link rel="stylesheet" href="assets/css/home-extras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
+
+    <script>
+        function getAge(dob) {
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            return age;
+        }
+    </script>
 </head>
 <body style="background-color: rgb(10,10,10);color: rgb(230,230,230);">
     <canvas id="smoke-canvas" aria-hidden="true"></canvas>
-    
-    <nav class="navbar navbar-dark navbar-expand-lg" style="filter: blur(0px);background-color: rgb(38,38,38);">
-        <div class="container-fluid"><a class="navbar-brand text-monospace logo" href="#" style="font-family: Abel, sans-serif;"><img src="assets/img/unnamed.png" style="width:30px;"><img></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace active" href="index.html">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="projects-grid-cards.html">Projects</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="https://www.linkedin.com/in/john-scales/" target="_blank" rel="noopener">LinkedIn</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="contact.html">Contact</a></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
+    <div data-include="/assets/components/navbar.html"></div>
     <main class="page lanidng-page">
         <section class="portfolio-block block-intro">
             <div class="container">
                 <div class="avatar" style="background-image: url(&quot;assets/img/Zirjohn.png&quot;);"></div>
                 <div class="about-me">
-                    <p class="text-monospace" style="font-size: 18px;">Hi, I'm John, a <script>document.write(new Date().getFullYear() -1997);</script> year old aspiring software engineer. I have experience with web dev, game dev, and mobile dev and <script>document.write((new Date().getFullYear() - 2020)*12 + new Date().getMonth());</script> months of professional experience with PLC and HMI programming along with some Python and other scripting with a sprinkle of web dev.</p><a class="btn btn-outline-primary text-monospace" role="button" href="contact.html">Contact me</a></div>
+                    <p class="text-monospace" style="font-size: 18px;">Hi, I'm John, a <script>document.write(getAge(new Date(1997, 8, 17)));</script> year old software engineer from SoCall. I am currently a backend software engineer working with .NET, SQL Server, Redis, Cosmos, SignalR, and AI.</p></div>
             </div>
         </section>
         <section class="text-monospace portfolio-block" id="external-data">
@@ -84,6 +83,7 @@
     <script src="assets/js/langtonsant.js"></script>
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/smoke.js"></script>
+    <script src="/assets/js/include-components.js"></script>
 
 </body>
 
