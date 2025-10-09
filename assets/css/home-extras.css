@@ -1,0 +1,37 @@
+/* assets/css/home-extras.css - small styles for GitHub & LinkedIn sections */
+
+#external-data .card { background-color: #111 !important; }
+.repo-grid { display:block; }
+.repo-list { display:flex; flex-direction:column; }
+.repo-card .card-body { padding:12px; }
+.repo-meta { color: #9aa; font-size: 0.9rem; margin-top:6px; }
+.repo-desc { color: #b8b8b8; font-size:0.95rem; }
+.repo-lang { margin-right:8px; padding:2px 6px; border-radius:4px; background:rgba(255,255,255,0.03); }
+.repo-stars { margin-right:8px; }
+
+/* LinkedIn rendered items */
+.li-section { margin-bottom: 12px; }
+.li-item .card-body { padding:10px; }
+.li-item h5 { margin:0 0 6px 0; }
+.li-item .muted { color: #9aa; font-size:0.9rem; margin-bottom:6px; }
+
+@media (min-width:768px){
+  .repo-list { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+}
+
+/* Smoke canvas positioning */
+#smoke-canvas {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* behind page content which uses z-index:auto (>=1) */
+  pointer-events: none; /* don't block clicks */
+  opacity: 0.9;
+}
+
+/* Ensure main page content sits above the canvas */
+body > *:not(#smoke-canvas) {
+  position: relative;
+  z-index: 1;
+}

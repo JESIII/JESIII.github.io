@@ -5,18 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home - John</title>
-    <meta name="description" content="A computer science student from SoCal. Here is my portfolio.">
+    <meta name="description" content="A software engineer from SoCal. Here is my portfolio.">
     <link rel="icon" type="image/png" sizes="256x256" href="assets/img/unnamed.png">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/home-extras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
 </head>
-
 <body style="background-color: rgb(10,10,10);color: rgb(230,230,230);">
+    <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+    
     <nav class="navbar navbar-dark navbar-expand-lg" style="filter: blur(0px);background-color: rgb(38,38,38);">
         <div class="container-fluid"><a class="navbar-brand text-monospace logo" href="#" style="font-family: Abel, sans-serif;"><img src="assets/img/unnamed.png" style="width:30px;"><img></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
@@ -24,9 +26,8 @@
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace active" href="index.html">Home</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="projects-grid-cards.html">Projects</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="cv.html">CV</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="https://www.linkedin.com/in/john-scales/" target="_blank" rel="noopener">LinkedIn</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="contact.html">Contact</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="twitch.html">Twitch</a></li>
                 </ul>
         </div>
         </div>
@@ -39,109 +40,36 @@
                     <p class="text-monospace" style="font-size: 18px;">Hi, I'm John, a <script>document.write(new Date().getFullYear() -1997);</script> year old aspiring software engineer. I have experience with web dev, game dev, and mobile dev and <script>document.write((new Date().getFullYear() - 2020)*12 + new Date().getMonth());</script> months of professional experience with PLC and HMI programming along with some Python and other scripting with a sprinkle of web dev.</p><a class="btn btn-outline-primary text-monospace" role="button" href="contact.html">Contact me</a></div>
             </div>
         </section>
-        <section class="text-monospace text-center">
+        <section class="text-monospace portfolio-block" id="external-data">
             <div class="container">
-                <div>
-                    <h2 class="text-monospace" style="height: 32px;font-weight: bold;">LANGUAGES</h2>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead style="color: rgb(200,200,200);">
-                                <tr>
-                                    <th>Language</th>
-                                    <th>Experience</th>
-                                </tr>
-                            </thead>
-                            <tbody style="color: rgb(150,150,150);">
-                                <tr>
-                                    <td>C++</td>
-                                    <td>Strongest language? might get overtaken by Javascript. Done a lot of coursework in this language from a basic command line programs to a compiler.&nbsp;<br>Also worked on a basic battleship game using SFML which worked
-                                        as far as placing ships and connecting to a remote host, but I never finished it up so that moves were send to and from the client/host. I tend to use styling that conforms to C++ norms for every language.<br><br></td>
-                                </tr>
-                                <tr>
-                                    <td>Java</td>
-                                    <td>This is the language I did my first courses in. I like the camelCase. It's not super functionally different from C++ for me personally but I know there are differences and the JVM can be good or bad depending on the
-                                        application. I do not like the super long method/function names. I want to learn Kotlin.</td>
-                                </tr>
-                                <tr>
-                                    <td>Python</td>
-                                    <td>I've mostly used this language for physics and math. I have "used" it for web development but I didn't do much myself.</td>
-                                </tr>
-                                <tr>
-                                    <td>JavaScript</td>
-                                    <td>I am using this language more and more as I do webapp development for school and in my free time. I really like this language and hope to get better with it. I do wish it was a typed, OO language though as doing things
-                                        I do in C++ to manipulate data on the web would be much easier I think.</td>
-                                </tr>
-                                <tr>
-                                    <td>Shell Script</td>
-                                    <td>I have made several scripts for bash my best being Tiny Tidy Backup: A&nbsp;shell script that backs up a specified folder to a specified destination directory or a remote directory using SSH and dd depending on the
-                                        parameters used. The folder is turned into a bzip archive using tar and is named according to this scheme: 2019-01-17-20-30-my-project.tar.bz2. A file is created in the destination directory named SHA256SUMS that
-                                        keeps a record of the archives and checksums that are generated from those archives. The SHA256SUMS files is used to delete old archives and add new ones (which are removed and appended to SHA256SUMS). The number
-                                        of kept archives depending on the parameter N that tells the script how many to keep. The script runs daily using crontab using whatever options the user specified.</td>
-                                </tr>
-                                <tr>
-                                    <td>Inline Intel x86 Assembly</td>
-                                    <td>I have used x86 assembly inline with C++ to do coursework. I am familiar with many of the instructions.</td>
-                                </tr>
-                                <tr>
-                                    <td>MIPS Assembly</td>
-                                    <td>I have used MIPS assembly to do coursework. I use MARS as my text editor/MIPS emulator when doing so. I have done similar course work as I did with C++ and I am currently still in a course using it (3/20/20).</td>
-                                </tr>
-                                <tr>
-                                    <td>Ladder Logic</td>
-                                    <td>Not sure if this counts as a language but for my current internship (3/20/20) I have to program PLCs which can be programmed in different ways. The most common for me is Ladder Logic which takes some time to learn.
-                                        Same programming logic applies but it does get more complicated then normal programming at times since you are working with real electronics and there are different rules that apply such as not being able to change
-                                        a bit on more than one line. You only get one line to modify each bit.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-md-6" id="linkedin-column">
+                        <div class="card bg-dark text-light border-0 mb-3">
+                            <div class="card-body">
+                                <div id="linkedin-render" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" id="github-column">
+                        <div class="card bg-dark text-light border-0 mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title text-monospace">GitHub Repositories</h3>
+                                </div>
+                                <div id="github-repos" class="repo-grid"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- <section class="text-monospace portfolio-block skills">
+        <section class="text-monospace text-center">
             <div class="container">
-                <div class="heading">
-                    <h2 class="text-monospace">About</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card special-skill-item border-0" style="background-color: rgb(8,8,8);">
-                            <div class="card-header bg-transparent border-0"><i class="icon ion-ios-person"></i></div>
-                            <div class="card-body">
-                                <h3 class="text-monospace card-title" style="color: rgb(255,255,255);">Personal Background</h3>
-                                <p class="text-monospace card-text">I'm a So Cal raised guy from a middle class family that has always been passionate about games and technology. I nearly failed high school but I completed the work of an entire class every 2 weeks for the second half of
-                                    junior and all of senior year and ended up graduating a month early. The point of me mentioning that is to show I work hard, especially under pressure. Now I study computer science and want to get into software engineering.
-                                    I am very iteresting in blockchain technology and AI. I am most comfortable with C++ but I'm a fast learner and can pick up on other languages quite easily. I was originally going to major in animation so I do have
-                                    experience with the 3d art side of games and some experience with Unity.<br><br></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card special-skill-item border-0" style="background-color: rgb(8,8,8);">
-                            <div class="card-header bg-transparent border-0"><i class="icon ion-android-happy"></i></div>
-                            <div class="card-body">
-                                <h3 class="text-monospace card-title" style="color: rgb(255,255,255);">Hobbies</h3>
-                                <p class="text-monospace card-text">I play a whole lot of video games in my free time, mostly FPS's and I also enjoy outdoor activities like hiking and camping. I also love to play basketball and skate with friends when we have time. I workout a lot too and
-                                    recommend it to everyone. I want to do a lot of travelling in my lifetime I've backpacked in Canada before and it was an amazing experience that I want to have again.<br><br></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card special-skill-item border-0" style="background-color: rgb(8,8,8);">
-                            <div class="card-header bg-transparent border-0"><i class="icon ion-ios-heart"></i></div>
-                            <div class="card-body">
-                                <h3 class="text-monospace card-title" style="color: rgb(255,255,255);">Things I like</h3>
-                                <p class="text-monospace card-text">Food: Pizza<br>Color: Blue<br>Sport: Basketball (to play) Football (to watch)<br>Most played games (most to least):<br>Minecraft<br>CS:GO<br>Rocket League<br>Overwatch<br><br></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </section> -->
+        </section>
     </main>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a class="text-monospace" href="cv.html">CV</a><a class="text-monospace" href="contact.html">Contact me</a><a class="text-monospace" href="projects-grid-cards.html">Projects</a></div>
+            <div class="links"><a class="text-monospace" href="https://www.linkedin.com/in/john-scales/" target="_blank" rel="noopener">LinkedIn</a><a class="text-monospace" href="contact.html">Contact me</a><a class="text-monospace" href="projects-grid-cards.html">Projects</a></div>
             <div class="social-icons"><a href="https://github.com/JESII"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/john-scales/"><i class="icon ion-social-linkedin"></i></a></div>
         </div>
     </footer>
@@ -150,9 +78,13 @@
     <script src="assets/js/smart-forms.min.js"></script>
     <script src="assets/js/aswilanga.js"></script>
     <script src="assets/js/etf.js"></script>
+    <script src="assets/js/github.js"></script>
+    <script src="assets/js/linkedin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/langtonsant.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script src="assets/js/smoke.js"></script>
+
 </body>
 
 </html>

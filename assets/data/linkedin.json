@@ -1,0 +1,33 @@
+{
+  "experience": [
+    {
+      "title": "Automation Engineer Intern",
+      "companyName": "Example Co",
+      "startDate": "2020-06",
+      "endDate": "2021-08",
+      "description": "Worked on PLC/HMI programming and automation projects."
+    }
+  ],
+  "education": [
+    {
+      "schoolName": "California State University, Fullerton",
+      "degree": "B.S. Computer Science",
+      "fieldOfStudy": "Computer Science",
+      "description": "Coursework in algorithms, systems programming, and software engineering."
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Example Certificate",
+      "issuer": "Certification Authority",
+      "description": "Sample certificate description"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Personal Portfolio",
+      "description": "This website and portfolio.",
+      "url": "https://jesiii.github.io"
+    }
+  ]
+}
