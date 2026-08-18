@@ -39,19 +39,10 @@ body {
 }
 
 /* ===== CRT Screen Bulge / Curvature =====
-   The actual warp is done by an SVG feDisplacementMap (see #crt-bulge in
-   index.html) applied to .crt-screen — that bends the real content pixels
-   like CRT glass, which pure CSS cannot do. body::before is layered on
-   top as the translucent "glass": radial vignette darkens the edges and a
-   corner bowl pushes the rim back. pointer-events none so it never blocks
-   clicks. */
-.crt-screen {
-    filter: url(#crt-bulge);
-    /* nudge so the warped edges stay inside the viewport */
-    transform: scale(1.012);
-    transform-origin: center;
-}
-
+   Translucent "glass" vignette: radial gradient darkens the edges and the
+   inset shadow pushes the rim back (the bowl). Layered above content but
+   pointer-events none so it never blocks clicks. (Note: the page-warp
+   barrel distortion was removed — this is the static glass effect only.) */
 body::before {
     content: '';
     position: fixed;
