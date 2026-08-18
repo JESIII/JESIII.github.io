@@ -13,29 +13,42 @@
       }catch(e){ console.error('Include failed', url, e); }
     }
     // After includes loaded, mark active nav link
-    markActiveNav();
+    scheduleMarkActive();
   }
 
   function normalizePath(p){
-    // Strip origin and trailing slash
-    try{ const u = new URL(p, location.href); return u.pathname.replace(/\/$/, '') || '/'; }catch(e){ return p; }
+    // Strip trailing slash for comparison — GitHub Pages serves /index.html as /
+    if(!p) return '/';
+    p = p.replace(/\/$/, '');
+    if(p === '') return '/';
+    return p;
   }
 
   function markActiveNav(){
     const links = document.querySelectorAll('nav a.nav-link');
+    if(links.length === 0) return; // no nav found yet (might be loading)
     const current = normalizePath(location.pathname || '/');
     links.forEach(a => {
       try{
         const href = normalizePath(a.getAttribute('href'));
-        if(href === current || (href === '/index.html' && current === '/') ){
+        if(href === current || (href === '/index.html' && current === '/') )
           a.classList.add('active-page');
-        } else {
+        else
           a.classList.remove('active-page');
-        }
       }catch(e){}
     });
   }
 
+  // Debounce to avoid marking active state before includes load
+  let markActiveTimeout;
+  function scheduleMarkActive(){
+    clearTimeout(markActiveTimeout);
+    markActiveTimeout = setTimeout(markActiveNav, 50);
+  }
+
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', includeAll);
   else includeAll();
+
+  // Also run on DOMContentLoaded as a fallback in case includes haven't loaded yet
+  document.addEventListener('DOMContentLoaded', scheduleMarkActive);
 })();
