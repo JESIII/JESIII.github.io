@@ -1,144 +1,147 @@
-/* CRT flicker effect - subtle brightness flickering via filter */
+/* ===== Custom terminal cursor =====
+   assets/img/finger.cur must be a REAL .cur binary.
+   The file currently in the repo is corrupt (placeholder text), so the
+   browser falls back to `auto` until a valid .cur is dropped in. */
+/* Clip stray horizontal overflow (e.g. the terminal title-bar's negative
+   margins + sub-pixel jitter) so the page never grows a flickering
+   horizontal scrollbar at the bottom. */
+html, body {
+    overflow-x: hidden;
+}
+
 body {
+    cursor: url('../img/finger.cur'), auto;
     background-color: rgb(0, 42, 68);
     color: rgb(230, 230, 230);
     font-family: 'Abel', monospace;
-    animation: crt-flicker 0.5s infinite linear;
 }
 
-@keyframes crt-flicker {
-    0%   { filter: brightness(1); }
-    50%  { filter: brightness(0.7); }
-    100% { filter: brightness(1); }
+/* ===== CRT Brightness Flicker =====
+   A transparent black overlay that briefly fades in (~5% every ~5s).
+   Uses opacity (GPU-composited) instead of a filter on <html>, so it
+   does NOT create a containing block for the fixed CRT layers — which
+   would otherwise let them paint over the navbar and cause an
+   edge-seam flicker (the gray bar at the bottom of the screen). */
+.crt-flicker {
+    position: fixed;
+    inset: 0;
+    z-index: 9997;
+    pointer-events: none;
+    background: #000;
+    opacity: 0;
+    animation: crt-brightness-flicker 5s ease-in-out infinite;
 }
 
-/* CRT scanlines - thin lines between text rows via background */
+@keyframes crt-brightness-flicker {
+    0%, 86%, 100% { opacity: 0; }
+    90%           { opacity: 0.05; }
+    94%           { opacity: 0; }
+}
+
+/* ===== CRT Screen Bulge / Curvature =====
+   Full-screen "glass": a perspective barrel bulge bends the whole page
+   like old CRT glass, the radial gradient + inset shadow push the edges
+   back (the bowl), and a corner vignette darkens the corners.
+   Sits above content but ignores pointer events. */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    /* barrel curvature: scale up slightly and pull center forward */
+    transform: perspective(1400px) scale(1.012) translateZ(0);
+    background:
+        radial-gradient(
+            ellipse 100% 100% at center,
+            rgba(0, 0, 0, 0) 55%,
+            rgba(0, 0, 0, 0.45) 82%,
+            rgba(0, 0, 0, 0.7) 100%
+        );
+    box-shadow:
+        inset 0 0 160px rgba(0, 0, 0, 0.75),
+        inset 0 0 60px rgba(0, 0, 0, 0.55);
+}
+
+/* ===== CRT Scanlines =====
+   Static horizontal lines, slightly darker than the background.
+   Overlaid on top of content (above the bowl). */
 body::after {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background-image: repeating-linear-gradient(90deg, rgba(230, 230, 230, 0.1) 1px, transparent 1px);
-    background-size: 1px 4px;
-    animation: crt-scanlines 0.5s infinite linear;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.22) 50%
+    );
+    background-size: 100% 3px;
 }
 
-@keyframes crt-scanlines {
-    0%   { background-position: 0 0; }
-    100% { background-position: 0 200vh; }
-}
-
-/* CRT distortion on main content area */
+/* ===== Main content: full-width, left-justified like a terminal ===== */
 .page.lanidng-page {
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 100%;
+    margin: 40px 0;
+    padding: 20px 24px;
     background-color: rgba(0, 50, 80, 0.9);
     border: 2px solid rgb(100, 100, 100);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transform: rotate(-0.5deg) scale(1.002);
-    animation: crt-rotate 8s infinite linear;
+    box-shadow: none;
+    text-align: left;
+    /* subtle signal instability — horizontal micro-jitter */
+    animation: crt-jitter 4s ease-in-out infinite;
 }
 
-@keyframes crt-rotate {
-    0%   { transform: rotate(-0.5deg) scale(1.002); }
-    33%  { transform: rotate(0.5deg) scale(0.998); }
-    66%  { transform: rotate(-0.3deg) scale(1.001); }
-    100% { transform: rotate(-0.5deg) scale(1.002); }
+@keyframes crt-jitter {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-0.5px); }
+    50%      { transform: translateX(0.4px); }
+    75%      { transform: translateX(-0.3px); }
 }
 
-/* CRT glow text shadow */
-.text-monospace, h1, h2, h3, h4, h5, h6, p, a, li, td, th, span, div {
-    text-shadow: 0 0 8px rgba(230, 230, 230, 0.3), 0 0 16px rgba(230, 230, 230, 0.1);
+.page.lanidng-page > * {
+    text-align: left !important;
 }
 
-/* CRT blinking cursor */
-@keyframes crt-blink {
-    0%   { opacity: 1; }
-    50%  { opacity: 0; }
-}
-
-.cursor-blink::after {
-    content: '_';
-    animation: crt-blink 0.8s infinite step-end;
-    margin-left: 4px;
-}
-
-/* CRT glow effect on specific elements */
-.card.bg-dark, .navbar, .page-footer {
-    box-shadow: 0 0 20px rgba(230, 230, 230, 0.1);
-}
-
-canvas {
-  display: block;
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1; /* Place behind other content */
-}
-
-/* Terminal window chrome — title bar + menu bar (absolute positioning) */
-.page.lanidng-page {
-    position: relative;
-}
-
+/* Terminal window chrome — top title/menubar strip */
 .page.lanidng-page::before {
     content: '';
     display: block;
     background-color: rgb(20, 60, 90);
     border-bottom: 1px solid rgb(100, 100, 100);
     padding: 4px 8px;
-    margin-bottom: 0;
+    margin: -20px -24px 20px;
 }
 
-/* Bright orange text for command output — cool-old-term style */
+/* ===== CRT Bloom / Phosphor Glow =====
+   Orange text bleeds slightly into its neighbors. */
 .text-monospace {
-    color: rgb(255, 170, 34) !important; /* bright orange */
-    text-shadow: none !important;
+    color: rgb(255, 170, 34) !important;
+    text-shadow:
+        0 0 3px rgba(255, 170, 34, 0.55),
+        0 0 10px rgba(255, 170, 34, 0.25);
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: rgb(255, 170, 34);
+    text-shadow:
+        0 0 3px rgba(255, 170, 34, 0.55),
+        0 0 10px rgba(255, 170, 34, 0.25);
 }
 
-/* Blinking cursor at end of prompts */
-.cursor-blink::after {
-    content: '_';
-    animation: crt-blink 0.8s infinite step-end;
-    margin-left: 4px;
+p, a, li, td, th, span, div {
+    text-shadow: 0 0 2px rgba(255, 170, 34, 0.16);
 }
 
-/* CRT darkening overlay — makes the whole page look like it's on a real monitor */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -3;
-    background-color: rgba(255, 170, 34, 0.05); /* subtle bright overlay */
-}
-
-/* Make the avatar look more terminal-like */
-.avatar {
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Terminal-style cards */
+/* ===== Terminal-style cards ===== */
 .card.bg-dark {
     background-color: rgba(0, 50, 80, 0.7) !important;
     border: 1px solid rgb(60, 60, 60) !important;
     box-shadow: none !important;
 }
 
-/* Terminal-style links */
+/* ===== Terminal-style links ===== */
 a {
     color: rgb(230, 230, 230);
     text-decoration: underline;
@@ -148,20 +151,25 @@ a:hover {
     color: rgb(150, 150, 150);
 }
 
-/* Footer styling */
+/* ===== Footer ===== */
 .page-footer {
     background-color: rgba(0, 42, 68, 0.9) !important;
     border-top: 1px solid rgb(60, 60, 60);
     margin-top: 30px;
 }
 
-/* Make the navbar look more terminal-like */
+/* ===== Navbar =====
+   Lifted above the CRT overlays (z 9998/9999) so the top-edge vignette
+   can't darken it into invisibility. position:relative + z-index keeps it
+   both visible and clickable. */
 .navbar {
-    background-color: rgba(0, 50, 80, 0.9) !important;
-    border-bottom: 1px solid rgb(60, 60, 60);
+    position: relative;
+    z-index: 10000;
+    background-color: rgba(0, 50, 80, 0.95) !important;
+    border-bottom: 1px solid rgb(100, 100, 100);
 }
 
-/* Terminal-style buttons and interactive elements */
+/* ===== Buttons ===== */
 .btn-primary {
     background-color: rgb(20, 60, 90) !important;
     color: rgb(230, 230, 230) !important;
@@ -172,7 +180,7 @@ a:hover {
     background-color: rgb(40, 80, 120) !important;
 }
 
-/* Terminal-style code blocks */
+/* ===== Code blocks ===== */
 pre, code {
     background-color: rgba(0, 30, 50, 0.9);
     border: 1px solid rgb(60, 60, 60);
@@ -180,7 +188,7 @@ pre, code {
     font-family: 'Abel', monospace;
 }
 
-/* Terminal-style scrollbars */
+/* ===== Scrollbars ===== */
 ::-webkit-scrollbar {
     background-color: rgba(230, 230, 230, 0.3) !important;
 }
@@ -189,7 +197,7 @@ pre, code {
     background-color: rgb(60, 60, 60);
 }
 
-/* Terminal-style selection */
+/* ===== Selection ===== */
 ::selection {
     background-color: rgb(40, 80, 120);
     color: rgb(230, 230, 230);
