@@ -82,23 +82,35 @@ canvas {
   z-index: -1; /* Place behind other content */
 }
 
-/* Terminal window header */
-.page.lanidng-page::before {
-    content: 'TERMINAL — JESIII PORTFOLIO';
-    display: block;
-    background-color: rgb(20, 60, 90);
-    color: rgb(230, 230, 230);
-    padding: 8px 12px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgb(100, 100, 100);
-    font-size: 14px;
-    letter-spacing: 1px;
+/* Terminal window chrome — title bar + menu bar (absolute positioning) */
+.page.lanidng-page {
+    position: relative;
 }
 
-/* Terminal prompt styling */
+.page.lanidng-page::before {
+    content: '';
+    display: block;
+    background-color: rgb(20, 60, 90);
+    border-bottom: 1px solid rgb(100, 100, 100);
+    padding: 4px 8px;
+    margin-bottom: 0;
+}
+
+/* Bright orange text for command output — cool-old-term style */
 .text-monospace {
-    color: rgb(230, 230, 230) !important;
+    color: rgb(255, 170, 34) !important; /* bright orange */
     text-shadow: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: rgb(255, 170, 34);
+}
+
+/* Blinking cursor at end of prompts */
+.cursor-blink::after {
+    content: '_';
+    animation: crt-blink 0.8s infinite step-end;
+    margin-left: 4px;
 }
 
 /* Make the avatar look more terminal-like */
