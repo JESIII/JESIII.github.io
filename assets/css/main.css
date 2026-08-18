@@ -1,7 +1,75 @@
+/* CRT flicker effect - subtle brightness flickering via filter */
 body {
     background-color: rgb(0, 42, 68);
     color: rgb(230, 230, 230);
     font-family: 'Abel', monospace;
+    animation: crt-flicker 0.5s infinite linear;
+}
+
+@keyframes crt-flicker {
+    0%   { filter: brightness(1); }
+    50%  { filter: brightness(0.7); }
+    100% { filter: brightness(1); }
+}
+
+/* CRT scanlines - thin lines between text rows via background */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background-image: repeating-linear-gradient(90deg, rgba(230, 230, 230, 0.1) 1px, transparent 1px);
+    background-size: 1px 4px;
+    animation: crt-scanlines 0.5s infinite linear;
+}
+
+@keyframes crt-scanlines {
+    0%   { background-position: 0 0; }
+    100% { background-position: 0 200vh; }
+}
+
+/* CRT distortion on main content area */
+.page.lanidng-page {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: rgba(0, 50, 80, 0.9);
+    border: 2px solid rgb(100, 100, 100);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: rotate(-0.5deg) scale(1.002);
+    animation: crt-rotate 8s infinite linear;
+}
+
+@keyframes crt-rotate {
+    0%   { transform: rotate(-0.5deg) scale(1.002); }
+    33%  { transform: rotate(0.5deg) scale(0.998); }
+    66%  { transform: rotate(-0.3deg) scale(1.001); }
+    100% { transform: rotate(-0.5deg) scale(1.002); }
+}
+
+/* CRT glow text shadow */
+.text-monospace, h1, h2, h3, h4, h5, h6, p, a, li, td, th, span, div {
+    text-shadow: 0 0 8px rgba(230, 230, 230, 0.3), 0 0 16px rgba(230, 230, 230, 0.1);
+}
+
+/* CRT blinking cursor */
+@keyframes crt-blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+}
+
+.cursor-blink::after {
+    content: '_';
+    animation: crt-blink 0.8s infinite step-end;
+    margin-left: 4px;
+}
+
+/* CRT glow effect on specific elements */
+.card.bg-dark, .navbar, .page-footer {
+    box-shadow: 0 0 20px rgba(230, 230, 230, 0.1);
 }
 
 canvas {
@@ -12,16 +80,6 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1; /* Place behind other content */
-}
-
-/* Terminal-like styling for the main content area */
-.page.lanidng-page {
-    max-width: 960px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: rgba(0, 50, 80, 0.9);
-    border: 2px solid rgb(100, 100, 100);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Terminal window header */
